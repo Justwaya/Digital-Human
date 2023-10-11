@@ -1,8 +1,8 @@
 import CryptoJS from 'crypto-js'
-
-const APPID = '1190c8d0' //在科大讯飞控制台中获取的服务接口认证信息
-const API_SECRET = 'YWIxZTAxMDU1MjhlN2MyZjI2MzA3NjMx' //在科大讯飞控制台中获取的服务接口认证信息
-const API_KEY = '362b11fe699dc1938699f9018e884ae2' //在科大讯飞控制台中获取的服务接口认证信息
+const APPID = import.meta.env.VITE_XF_APPID || '1190c8d0' //在科大讯飞控制台中获取的服务接口认证信息
+const API_SECRET = import.meta.env.VITE_XF_API_SECRET //在科大讯飞控制台中获取的服务接口认证信息
+const API_KEY = import.meta.env.VITE_XF_API_KEY //在科大讯飞控制台中获取的服务接口认证信息
+const TIME = 5000   //默认静默时间
 
 const transWorker = new Worker(new URL('./transcode.worker.js', import.meta.url))
 var startTime = ""
@@ -28,12 +28,13 @@ function getWebSocketUrl() {
     })
 }
 const IatRecorder = class {
-    constructor({ language, accent, appId } = {}) {
+    constructor({ language, accent, appId, time } = {}) {
         let self = this
         this.status = 'null'
         this.language = language || 'zh_cn'
         this.accent = accent || 'mandarin'
         this.appId = appId || APPID
+        this.time = time || TIME
         // 记录音频数据
         this.audioData = []
         // 记录听写结果
@@ -229,7 +230,7 @@ const IatRecorder = class {
                 language: this.language, //小语种可在控制台--语音听写（流式）--方言/语种处添加试用
                 domain: 'iat',  //日常用语
                 accent: this.accent, //中文方言可在控制台--语音听写（流式）--方言/语种处添加试用
-                vad_eos: 5000,  //静默时间
+                vad_eos: this.time,  //静默时间
                 dwa: 'wpgs' //为使该功能生效，需到控制台开通动态修正功能（该功能免费）
             },
             data: {

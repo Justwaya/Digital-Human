@@ -33,6 +33,7 @@ const showHalfcir = ref(false)
 const rate = ref(0)
 const currentRate = ref(0)
 const buttonType = ref<string>('primary')
+const XFSTATICTIME = 5000 //讯飞静默时间 ms
 
 const offset = ref({ x: -1, y: 300 });
 // 获取全局的 vue 实例
@@ -52,7 +53,7 @@ const countTime = () => {
     }, 1000)
 }
 
-const iatRecorder = new IatRecorder('en_us', 'mandarin', '1190c8d0')
+const iatRecorder = new IatRecorder('en_us', 'mandarin', '1190c8d0', XFSTATICTIME)
 const handleClick = async () => {
     // websocketUrl.value = await apis.getWebsocketUrl() ?? ''
     // if (!websocketUrl.value) {
@@ -81,8 +82,9 @@ const handleClick = async () => {
             await instance?.proxy?.$Bus.emit('dataList', { data: content.value, status: false })
         }
     } else {
-        instance?.proxy?.$Bus.emit('ended')
         iatRecorder.stop()
+        console.log('关闭录音');
+        instance?.proxy?.$Bus.emit('ended')
         clearStatus()
     }
 }
@@ -131,8 +133,8 @@ const clearStatus = () => {
 
     .circle {
         position: absolute;
-        left: 79.8vw;
-        bottom: 47.3vh;
+        left: 80vw;
+        bottom: 48vh;
         // margin-bottom: 14px;
         width: 66px;
         height: 66px;
