@@ -43,7 +43,7 @@ interface listType {
 }
 // 收集用户消息
 instance?.proxy?.$Bus.on('dataList', (res: any) => {
-    const { data, status } = res
+    const { data = '', status } = res
     if (data) {
         if (list.value.at(-1)?.role === 'USER' && !status) {
             list.value.at(-1).info = data
@@ -107,9 +107,7 @@ watch(() => list.value,
             if (newVal.length > 0) {
                 listRef.value[newVal.length - 1]?.scrollIntoView();
             }
-        }
-            // 
-        )
+        })
     }, { deep: true }
 )
 onBeforeUnmount(() => {

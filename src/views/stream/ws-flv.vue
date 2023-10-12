@@ -8,19 +8,25 @@
   
 <script setup lang='ts'>
 import flvjs from 'flv.js'
+
+const SPEED = 0.8
+const SPEEDNEXT = 0.9
+
+let ws: any
+
 const videoRef = ref<HTMLVideoElement | any>()
 const videoRef2 = ref<HTMLVideoElement | any>()
 let flvplayer: any
 let flvplayerNext: any
-let ws: any
-
 const videoArray = ref<Array<string>>([])
 const videoArrayNext = ref<Array<string>>([])
-const status = ref(false)
+
+const status = ref(false)       //数组列表
+const videoStatus = ref('')     //stop play
 const instance = getCurrentInstance();
 const endedVido = ref(true)    //视频结束
 const firPlay = ref(false)      //首次播放
-const videoStatus = ref('')
+
 
 const initWebSocket = () => {
     ws = new WebSocket('ws://192.168.110.172:5656')
@@ -45,7 +51,7 @@ const initWebSocket = () => {
             }, { autoCleanupSourceBuffer: true })
             flvplayer.attachMediaElement(videoRef.value)
             flvplayer.load()
-            videoRef.value.playbackRate = 0.8
+            videoRef.value.playbackRate = SPEED
             flvplayer.play()
 
             flvplayerNext = flvjs.createPlayer({
@@ -55,7 +61,7 @@ const initWebSocket = () => {
             }, { autoCleanupSourceBuffer: true })
             flvplayerNext.attachMediaElement(videoRef2.value)
             flvplayerNext.load()
-            videoRef2.value.playbackRate = 0.9
+            videoRef2.value.playbackRate = SPEEDNEXT
             videoRef2.value.muted = true
             flvplayerNext.play()
         } else {
@@ -90,7 +96,7 @@ const pause = () => {
     }, { autoCleanupSourceBuffer: true })
     flvplayer.attachMediaElement(videoRef.value)
     flvplayer.load()
-    videoRef.value.playbackRate = 0.9
+    videoRef.value.playbackRate = SPEEDNEXT
     videoRef.value.muted = true
     // flvplayer.play()
 }
@@ -105,7 +111,7 @@ const pauseNext = () => {
         }, { autoCleanupSourceBuffer: true })
         flvplayerNext.attachMediaElement(videoRef2.value)
         flvplayerNext.load()
-        videoRef2.value.playbackRate = 0.8
+        videoRef2.value.playbackRate = SPEED
         videoRef2.value.muted = false
         flvplayerNext.play()
         flvplayer.play()

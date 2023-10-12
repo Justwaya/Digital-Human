@@ -69,7 +69,8 @@ const handleClick = async () => {
         buttonType.value = 'success'
         iatRecorder.start();
         // 发布状态 - 区别消息
-        await instance?.proxy?.$Bus.emit('dataList', { data: '...', status: true })
+        // await instance?.proxy?.$Bus.emit('dataList', { data: '...', status: true })
+        await instance?.proxy?.$Bus.emit('dataList', { status: true })
 
         iatRecorder.onTextChange = async (text: string) => {
             // 3秒钟内没有说话，就自动关闭
@@ -99,16 +100,11 @@ iatRecorder.onWillStatusChange = function (oldStatus: string, newStatus: string)
         console.log('清空状态');
         // instance?.proxy?.$Bus.emit('dataList', content.value)
         showHalfcir.value = false
-        console.log(newStatus, '结束连接');
         // iatRecorder.stop()
         clearStatus()
         // instance?.proxy?.$Bus.off('dataList')
     }
 }
-// const handleShow = () => {
-//     showHalfcir.value = false
-//     clearStatus()
-// }
 // 清空状态
 const clearStatus = () => {
     clearInterval(timer.value)
@@ -126,15 +122,6 @@ const clearStatus = () => {
 </script>
 <style scoped lang="scss">
 .footer-container {
-    .footer-button {
-        // z-index: 999999;
-        // width: 60px;
-        // height: 60px;
-        // position: relative;
-        // width: var(--van-floating-bubble-size);
-        // height: var(--van-floating-bubble-size);
-    }
-
     .circle {
         position: absolute;
         left: 80vw;
