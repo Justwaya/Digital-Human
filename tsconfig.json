@@ -34,7 +34,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
-, "src/utils/useSocket.js"  ],
+, "src/hooks/useSocket.js"  ],
   "references": [
     {
       "path": "./tsconfig.node.json"
