@@ -72,7 +72,7 @@ const canplay = () => {
     // pauseNext()
     if (!firPlay.value) {
         pauseNext()
-        // endedVido.value = true
+        endedVido.value = true
     }
     firPlay.value = false
 }

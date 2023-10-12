@@ -1,5 +1,5 @@
 <template>
-    <div class="footer-container">
+    <div class="footer-container" v-if="playStatus">
         <van-floating-bubble axis="lock" :icon="img" magnetic="x" @click="handleClick" class="footer-button"
             v-model:offset="offset" />
         <div v-show="showHalfcir">
@@ -40,6 +40,10 @@ const offset = ref({ x: -1, y: 300 });
 const instance = getCurrentInstance();
 // let times: any = null
 
+const playStatus = ref(true)
+instance?.proxy?.$Bus.on('display', () => {
+    playStatus.value = true
+})
 // 计时器
 const countTime = () => {
     countTimer.value = setInterval(() => {
@@ -78,14 +82,14 @@ const handleClick = async () => {
             // let inputText = text
             // content.value = inputText.substring(0, inputText.length - 1);//文字处理
             content.value = text
-            console.log("🚀 ~ file: countDown.vue:80 ~ content.value:", content.value)
             await instance?.proxy?.$Bus.emit('dataList', { data: content.value, status: false })
         }
     } else {
-        iatRecorder.stop()
         console.log('关闭录音');
-        instance?.proxy?.$Bus.emit('ended')
+        iatRecorder.stop()
+        playStatus.value = false
         clearStatus()
+        instance?.proxy?.$Bus.emit('ended')
     }
 }
 iatRecorder.onWillStatusChange = function (oldStatus: string, newStatus: string) {
@@ -134,7 +138,7 @@ const clearStatus = () => {
     .circle {
         position: absolute;
         left: 80vw;
-        bottom: 48vh;
+        bottom: 47vh;
         // margin-bottom: 14px;
         width: 66px;
         height: 66px;

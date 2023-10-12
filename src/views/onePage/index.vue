@@ -9,14 +9,14 @@
 </template>
 
 <script setup lang='ts'>
-import VideoStream from './componment/videoStream.vue';
+// import VideoStream from './componment/videoStream.vue';
+import VideoStream from '../stream/ws-flv.vue';
 // import VideoStream from '../copy/myDplayer.vue';
 // import VideoStream from '../copy/index.vue';
 // import VideoStream from '../copy/hls.vue';
 // import VideoStream from '../copy/twoVideo.vue';
 import Main from './componment/main.vue'
 import CountDown from './componment/countDown.vue'
-
 
 </script>
 <style scoped lang="scss">
