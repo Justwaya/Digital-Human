@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --open --mode base",
-    "build": "vue-tsc && vite build",
+    "build": "vue-tsc && vite build --mode production",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -19,7 +19,6 @@
     "crypto-js": "^4.1.1",
     "dplayer": "^1.27.1",
     "flv.js": "^1.6.2",
-    "js-audio-recorder": "^0.5.7",
     "mitt": "^3.0.1",
     "mux.js": "^6.3.0",
     "postcss-pxtorem": "^6.0.0",
