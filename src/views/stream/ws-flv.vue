@@ -36,10 +36,9 @@ const initWebSocket = () => {
     ws.onmessage = async (e) => {
         if (e.data == 'stop') {
             videoStatus.value = 'stop'
-            videoArray.value = []
-            videoArrayNext.value = []
             return false
         }
+        if (!endedVido.value) return false
         videoStatus.value = 'play'
         const blob = new Blob([e.data], { type: 'video/flv' });
         const videoURL = URL.createObjectURL(blob)
@@ -127,6 +126,17 @@ const videoNextPause = () => {
         instance?.proxy?.$Bus.emit('display')
     }
 }
+// 中止对话
+const stopConmunite = () => {
+    console.log('中止本轮对话');
+    videoStatus.value == 'stop'
+    flvplayer.pause()
+    flvplayerNext.pause()
+    endedVido.value = false
+    videoArray.value = []
+    videoArrayNext.value = []
+    // videoNextPause()
+}
 onBeforeUnmount(() => {
     console.log('关闭websocket');
     if (ws && ws.readyState == WebSocket.OPEN) {
@@ -135,6 +145,7 @@ onBeforeUnmount(() => {
     videoArray.value.length = 0
     videoArrayNext.value.length = 0
 })
+defineExpose({ stopConmunite })
 onMounted(() => {
     initWebSocket()
 })

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <VideoStream />
+        <VideoStream ref="videoStreamRef" />
         <main class="main">
             <div class="main-container" ref="mainRef">
                 <div class="admin adminInit">
@@ -48,6 +48,8 @@ const initText = ref('您好，我是天星科技的AI助手小星')
 const clearTextTime = 3000  //3s
 let userTimer: any
 let aiTimer: any
+const videoStreamRef = ref()
+
 interface listType {
     role: string,
     info: string,
@@ -90,7 +92,7 @@ instance?.proxy?.$Bus.on('ended', () => {
 
 })
 const initWebsocket = () => {
-    ws = new WebSocket('ws://192.168.110.172:6949')
+    // ws = new WebSocket('ws://192.168.110.172:6949')
     // ws = new WebSocket('ws://localhost:8080')    //临时
     ws.onopen = () => {
         console.log('文本 websocket 连接成功')
@@ -111,6 +113,7 @@ const sendMassage = (data: string) => {
 }
 const handleStop = () => {
     ws.send("stop")//结束帧
+    videoStreamRef.value.stopConmunite()
 }
 watch(() => list.value,
     (newVal) => {
