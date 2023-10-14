@@ -23,7 +23,7 @@ export default defineConfig({
     //       rewrite: (path) => path.replace(/^\/api/, '')
     //     }
     //   }
-    port: 8888,
+    port: 8000,
     host: "0.0.0.0",
   },
   build: {

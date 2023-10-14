@@ -98,10 +98,10 @@ iatRecorder.onWillStatusChange = function (oldStatus: string, newStatus: string)
         countTime()
     } else if (newStatus == 'end') {
         console.log('清空状态');
-        // instance?.proxy?.$Bus.emit('dataList', content.value)
         showHalfcir.value = false
         // iatRecorder.stop()
         clearStatus()
+        // instance?.proxy?.$Bus.emit('dataList', { data: content.value, status: false })
         // instance?.proxy?.$Bus.off('dataList')
     }
 }

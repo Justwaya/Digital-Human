@@ -29,8 +29,8 @@
 </template>
 
 <script setup lang='ts'>
-// import VideoStream from './componment/videoStream.vue';
-import VideoStream from '../stream/ws-flv.vue';
+import VideoStream from './componment/videoStream.vue';
+// import VideoStream from '../stream/ws-flv.vue';
 
 // import Main from './componment/main.vue'
 import CountDown from './componment/countDown.vue'
@@ -42,7 +42,7 @@ let ws: any = null
 const list = ref<any>([])
 const instance = getCurrentInstance()
 let dataList = ref()
-const initText = ref('您好，我是天星科技的AI助手小星')
+const initText = ref('您好，我是AI助手小星')
 // const isUserLive = ref(false)
 // const isAILeave = ref(false)
 const clearTextTime = 3000  //3s
@@ -80,6 +80,7 @@ instance?.proxy?.$Bus.on('display', () => {
 instance?.proxy?.$Bus.on('ended', () => {
     clearTimeout(userTimer)
     const data = list.value.filter((item: listType) => item.role === 'USER')
+    console.log("🚀 ~ file: index.vue:83 ~ data:", data)
     sendMassage(data.at(-1).info)
     // isUserLive.value = true
     // 3s后 删除用户消息
@@ -92,11 +93,10 @@ instance?.proxy?.$Bus.on('ended', () => {
 
 })
 const initWebsocket = () => {
-    // ws = new WebSocket('ws://192.168.110.172:6949')
-    // ws = new WebSocket('ws://localhost:8080')    //临时
+    ws = new WebSocket('ws://192.168.110.172:6949')
     ws.onopen = () => {
         console.log('文本 websocket 连接成功')
-        // sendMassage('虞美人 · 粉融红腻莲房绽')    //临时 
+        // sendMassage('请介绍一下天津')    //临时 
     }
     ws.onmessage = (e) => {
         if (dataList.value) {
