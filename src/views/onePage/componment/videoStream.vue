@@ -144,6 +144,8 @@ const stopConmunite = () => {
     videoArray.value = []
     videoArrayNext.value = []
     // videoNextPause()
+    videoRef.value.pause()
+    videoRef2.value.pause()
     instance?.proxy?.$Bus.emit('display')
 }
 onBeforeUnmount(() => {
