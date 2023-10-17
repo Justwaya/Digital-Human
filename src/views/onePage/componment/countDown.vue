@@ -3,9 +3,6 @@
         <van-floating-bubble axis="lock" :icon="img" magnetic="x" @click="handleClick" class="footer-button"
             v-model:offset="offset" />
         <div v-show="showHalfcir">
-            <!-- <div class="footer-input">
-                <div class="input-inner">{{ content }}</div>
-            </div> -->
             <van-circle :rate="rate" :speed="100" v-model:current-rate="currentRate" :stroke-width="70"
                 start-position="bottom" class="circle">
             </van-circle>

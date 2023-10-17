@@ -38,7 +38,7 @@ const initWebSocket = () => {
             videoStatus.value = 'stop'
             return false
         }
-        if (!endedVido.value) return false
+        // if (!endedVido.value) return false
         videoStatus.value = 'play'
         const blob = new Blob([e.data], { type: 'video/flv' });
         const videoURL = URL.createObjectURL(blob)
@@ -129,13 +129,12 @@ const videoNextPause = () => {
 // 中止对话
 const stopConmunite = () => {
     console.log('中止本轮对话');
+    videoRef2.value.muted = true
     videoStatus.value == 'stop'
-    flvplayer.pause()
-    flvplayerNext.pause()
     endedVido.value = false
     videoArray.value = []
     videoArrayNext.value = []
-    // videoNextPause()
+
 }
 onBeforeUnmount(() => {
     console.log('关闭websocket');
