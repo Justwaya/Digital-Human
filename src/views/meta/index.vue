@@ -1,8 +1,5 @@
 <template>
     <div class="container">
-        <div class="head">
-            <div class="head-text"></div>
-        </div>
         <VideoStream ref="videoStreamRef" />
         <main class="main">
             <div class="main-container" ref="mainRef">
@@ -32,11 +29,11 @@
 </template>
 
 <script setup lang='ts'>
-import VideoStream from './componment/Stream/videoStream.vue';
+import VideoStream from './componment/videoStream.vue';
 // import VideoStream from '../stream/ws-flv.vue';
 
 // import Main from './componment/main.vue'
-import CountDown from './componment/XunFiVoice/countDown.vue'
+import CountDown from './componment/countDown.vue'
 import { getCurrentInstance } from 'vue'
 
 const listRef = ref()
@@ -84,8 +81,7 @@ instance?.proxy?.$Bus.on('ended', () => {
     clearTimeout(userTimer)
     const data = list.value.filter((item: listType) => item.role === 'USER')
     console.log("🚀 ~ file: index.vue:83 ~ data:", data)
-    if (data && data.length > 0)
-        sendMassage(data.at(-1).info)
+    sendMassage(data.at(-1).info)
     // isUserLive.value = true
     // 3s后 删除用户消息
     if (list.value.length > 2) {
@@ -112,7 +108,6 @@ const initWebsocket = () => {
     }
 }
 const sendMassage = (data: string) => {
-
     ws.send(JSON.stringify(data))
     dataList.value = ''
 }
@@ -143,78 +138,74 @@ onMounted(async () => {
 
 </script>
 <style scoped lang="scss">
-@import './index.scss';
+.container {
+    height: 100%;
+}
 
-// .container {
-//     height: 100%;
-// }
+.main {
+    // height: calc(100vh - 300px);
+    width: 100%;
+    height: 300px;
+    position: absolute;
+    bottom: 0;
+    padding: 0;
 
-// .main {
-//     // height: calc(100vh - 300px);
-//     width: 100%;
-//     height: 300px;
-//     position: absolute;
-//     bottom: 0;
-//     padding: 0;
+    .main-container {
+        overflow-y: scroll;
+        height: 100%;
 
-//     .main-container {
-//         overflow-y: scroll;
-//         height: 100%;
+        .main-container-inner {
+            padding: 0 8px;
+            display: flex;
+            width: 80%;
+            margin: 6px 0;
+        }
 
-//         .main-container-inner {
-//             padding: 0 8px;
-//             display: flex;
-//             width: 80%;
-//             margin: 6px 0;
-//         }
+        .user-container {
+            padding: 10px 8px;
+            display: flex;
+            flex-direction: row-reverse;
+        }
 
-//         .user-container {
-//             padding: 10px 8px;
-//             display: flex;
-//             flex-direction: row-reverse;
-//         }
+        .admin {
+            display: flex;
+        }
 
-//         .admin {
-//             display: flex;
-//         }
+        .adminInit {
+            padding: 0 8px;
+        }
 
-//         .adminInit {
-//             padding: 0 8px;
-//         }
+        .admin-avator {
+            padding: 0 10px;
 
-//         .admin-avator {
-//             padding: 0 10px;
+            .image {
+                width: 40px;
+                height: 40px;
+            }
+        }
 
-//             .image {
-//                 width: 40px;
-//                 height: 40px;
-//             }
-//         }
+        .admin-text {
+            // background-color: rgba(240, 240, 240, 0.2);
+            padding: 5px 12px;
+            line-height: 30px;
+            margin: auto 0;
+            word-wrap: break-word;
+            word-break: break-all;
 
-//         .admin-text {
-//             // background-color: rgba(240, 240, 240, 0.2);
-//             padding: 5px 12px;
-//             line-height: 30px;
-//             margin: auto 0;
-//             word-wrap: break-word;
-//             word-break: break-all;
+            // 毛玻璃效果
+            background: rgba(255, 255, 255, 0.2);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+        }
+    }
 
-//             // 毛玻璃效果
-//             background: rgba(255, 255, 255, 0.2);
-//             -webkit-backdrop-filter: blur(8px);
-//             backdrop-filter: blur(8px);
-//             box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.2);
-//             border-radius: 8px;
-//         }
-//     }
-
-//     .van-button {
-//         width: 30px;
-//         height: 35px;
-//         margin-left: 10px;
-//         opacity: 0.8;
-//     }
-// }
-
-// }
+    .van-button {
+        width: 30px;
+        height: 35px;
+        margin-left: 10px;
+        opacity: 0.8;
+    }
+}
 </style>

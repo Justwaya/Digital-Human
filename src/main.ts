@@ -8,7 +8,7 @@ import { Icon } from 'vant';
 import mitt from 'mitt'
 import './utils/rem.js'
 import 'animate.css/animate.min.css'
-
+import './mixins/theme.css'
 
 
 const Mit = mitt()

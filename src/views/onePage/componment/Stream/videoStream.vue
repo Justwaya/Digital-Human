@@ -2,7 +2,9 @@
     <div class="container-img">
         <video ref="videoRef2" class="pictureTwo" autoplay v-show="endedVido" @pause="videoNextPause"></video>
         <video ref="videoRef" class="picture" autoplay @pause="pause" @canplay="canplay" v-show="endedVido"></video>
-        <video src="../../../assets//video//staticStanding.mp4" autoplay muted class="pictureThree" loop></video>
+        <!-- <video src="../../../assets//video//staticStanding.mp4" autoplay muted class="pictureTwo" loop></video> -->
+        <!-- <video src="../../../assets//video//staticStanding.mp4" autoplay muted class="picture" loop></video> -->
+        <video src="@/assets/video/staticStanding.mp4" autoplay muted class="pictureThree" loop></video>
     </div>
 </template>
   
@@ -91,7 +93,6 @@ const canplay = () => {
 const pause = () => {
     if (videoArray.value.length == 0) {
         status.value = true
-        console.log(111111111111);
         return false
     }
     // flvplayer.pause()
@@ -161,38 +162,6 @@ onMounted(() => {
     initWebSocket()
 })
 </script>
-<style scoped>
-.container-img {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-
-    /* background-color: skyblue; */
-    .picture {
-        height: 100vh;
-        /* height: 50vh; */
-        /* width: 50vw; */
-        /* width: 80vw; */
-    }
-
-    .pictureTwo {
-        /* width: 50vw; */
-        /* height: 50vh; */
-
-        height: 100vh;
-        /* width: 80vw; */
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    .pictureThree {
-        height: 100vh;
-        /* width: 80vw; */
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-    }
-}
+<style scoped lang="scss" >
+@import "./index.scss";
 </style>

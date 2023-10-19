@@ -1,0 +1,35 @@
+@media screen and (max-width: 768px) {
+  .footer-container {
+    .circle {
+      position: absolute;
+      left: 80vw;
+      bottom: 47vh;
+      // margin-bottom: 14px;
+      width: 66px;
+      height: 66px;
+    }
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 1440px) {
+  .footer-container {
+    .circle {
+      position: absolute;
+      left: 80vw;
+      bottom: 47vh;
+      // margin-bottom: 14px;
+      width: 66px;
+      height: 66px;
+    }
+  }
+  //   .van-icon__image {
+  //     width: 70px;
+  //     height: 70px;
+  //   }
+  //   :root:root {
+  //     --van-floating-bubble-size: 80px;
+  //   }
+}
+::v-deep(.van-icon__image) {
+  font-size: 30px;
+  text-align: center;
+}

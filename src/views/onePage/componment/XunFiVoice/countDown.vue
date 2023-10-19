@@ -117,39 +117,6 @@ const clearStatus = () => {
 }
 
 </script>
-<style scoped lang="scss">
-.footer-container {
-    .circle {
-        position: absolute;
-        left: 80vw;
-        bottom: 47vh;
-        // margin-bottom: 14px;
-        width: 66px;
-        height: 66px;
-    }
-
-    .footer-input {
-        position: absolute;
-        bottom: 160px;
-        left: 125px;
-        width: 200px;
-        // height: 60px;
-        // background-color: #fff;
-        text-align: center;
-
-        .input-inner {
-            min-height: 20px;
-            padding: 8px 10px;
-            background-color: #fff;
-            word-wrap: break-word;
-            word-break: break-all;
-        }
-    }
-}
-
-
-::v-deep(.van-icon__image) {
-    font-size: 30px;
-    text-align: center;
-}
+<style  lang="scss">
+@import './index.scss';
 </style>
