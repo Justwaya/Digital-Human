@@ -4,7 +4,7 @@
         <video ref="videoRef" class="picture" autoplay @pause="pause" @canplay="canplay" v-show="endedVido"></video>
         <!-- <video src="../../../assets//video//staticStanding.mp4" autoplay muted class="pictureTwo" loop></video> -->
         <!-- <video src="../../../assets//video//staticStanding.mp4" autoplay muted class="picture" loop></video> -->
-        <video src="@/assets/video/staticStanding.mp4" autoplay muted class="pictureThree" loop></video>
+        <video src="@/assets/video/fullStanding.mp4" autoplay muted class="pictureThree" loop></video>
     </div>
 </template>
   

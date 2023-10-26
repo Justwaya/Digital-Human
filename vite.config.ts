@@ -23,8 +23,8 @@ export default defineConfig({
     //       rewrite: (path) => path.replace(/^\/api/, '')
     //     }
     //   }
-    port: 8000,
-    host: "0.0.0.0",
+    port: 8080,
+    host: "192.168.111.31",
   },
   build: {
     rollupOptions: {

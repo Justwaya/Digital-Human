@@ -1,6 +1,6 @@
 <template>
     <div class="footer-container" v-if="playStatus">
-        <van-floating-bubble axis="lock" :icon="img" magnetic="x" @click="handleClick" class="footer-button"
+        <van-floating-bubble axis="xy" :icon="img" magnetic="x" @click="handleClick" class="footer-button"
             v-model:offset="offset" />
         <div v-show="showHalfcir">
             <van-circle :rate="rate" :speed="100" v-model:current-rate="currentRate" :stroke-width="70"
@@ -32,7 +32,7 @@ const currentRate = ref(0)
 const buttonType = ref<string>('primary')
 const XFSTATICTIME = 5000 //讯飞静默时间 ms
 
-const offset = ref({ x: -1, y: 300 });
+const offset = ref({ x: -1, y: 1000 });
 // 获取全局的 vue 实例
 const instance = getCurrentInstance();
 // let times: any = null
