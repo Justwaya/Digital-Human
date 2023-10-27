@@ -1,27 +1,30 @@
 <template>
-    <div class="container">
+    <div class="container" ref="containRef">
         <div class="head">
-            <div class="head-text"></div>
+            <div class="head-text">
+                <div class="date">{{ currentDate }}</div>
+                <div class="imgContent">
+                    mimic
+                    <img src="@/assets/image/smail.png" alt="img" @click="fullScreen">
+                </div>
+            </div>
         </div>
         <VideoStream ref="videoStreamRef" />
+        <!-- <div class="word">
+            <div class="admin-text">{{ initText }}</div>
+        </div> -->
         <main class="main">
-            <div class="main-container" ref="mainRef">
-                <div class="admin adminInit">
-                    <div class="admin-avator">
-                        <van-image fit="fill"
-                            src="https://c-ssl.dtstatic.com/uploads/blog/202207/09/20220709150824_97667.thumb.400_0.jpg"
-                            class="image" />
-                    </div>
-                    <div class="admin-text">{{ initText }}</div>
-                </div>
-                <div v-for="(item, index) in  list " :key="index" ref="listRef" class="main-container-inner">
-                    <div class="admin">
-                        <div class="admin-avator">
-                            <van-image fit="fill" :src="item.imgURL" class="image" />
-                        </div>
-                        <div class="admin-text">{{ item.info }}</div>
-                        <div v-if="item.role == 'AI'"><van-button type="danger" icon="close"
-                                @click="handleStop"></van-button>
+            <div class="main-inner">
+                <div class="main-container" ref="mainRef">
+                    <div v-for="(item, index) in  list " :key="index" ref="listRef" class="main-container-inner"
+                        :class="item.role == 'USER' ? 'user' : 'ai'">
+                        <div class="admin">
+                            <div v-if="item.role == 'AI'" class="ai-content">
+                                <div class="test">AI生成</div>
+                                <div class="content" @click="handleStop">停止回答</div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="admin-text">{{ item.info }}</div>
                         </div>
                     </div>
                 </div>
@@ -33,19 +36,29 @@
 
 <script setup lang='ts'>
 import VideoStream from './componment/Stream/videoStream.vue';
-// import VideoStream from '../stream/ws-flv.vue';
-
-// import Main from './componment/main.vue'
+import currentTime from '@/utils/currentTime'
 import CountDown from './componment/XunFiVoice/countDown.vue'
 import { getCurrentInstance } from 'vue'
 
 const listRef = ref()
 const mainRef = ref()
 let ws: any = null
-const list = ref<any>([])
+const list = ref<any>([
+    { info: '11111111111', role: 'USER' },
+    { info: '2222222222', role: 'AI' },
+    { info: '11111111111', role: 'USER' },
+    { info: '2222222222', role: 'AI' },
+    { info: '11111111111', role: 'USER' },
+    { info: '2222222222', role: 'AI' },
+    { info: '11111111111', role: 'USER' },
+    { info: '2222222222', role: 'AI' },
+    { info: '11111111111', role: 'USER' },
+    { info: '2222222222', role: 'AI' },
+
+])
 const instance = getCurrentInstance()
 let dataList = ref()
-const initText = ref('您好，我是AI助手小星')
+// const initText = ref('您好，我是AI助手小星')
 // const isUserLive = ref(false)
 // const isAILeave = ref(false)
 const clearTextTime = 3000  //3s
@@ -100,7 +113,7 @@ const initWebsocket = () => {
     ws = new WebSocket('ws://192.168.110.172:6949')
     ws.onopen = () => {
         console.log('文本 websocket 连接成功')
-        // sendMassage('请介绍一下天津')    //临时 
+        sendMassage('请详细介绍一下天津')    //临时 
     }
     ws.onmessage = (e) => {
         if (dataList.value) {
@@ -111,15 +124,18 @@ const initWebsocket = () => {
         }
     }
 }
+
 const sendMassage = (data: string) => {
 
     ws.send(JSON.stringify(data))
     dataList.value = ''
 }
+
 const handleStop = () => {
     ws.send("stop")//结束帧
     videoStreamRef.value.stopConmunite()
 }
+
 watch(() => list.value,
     (newVal) => {
         // 自动滚动至底部
@@ -130,91 +146,39 @@ watch(() => list.value,
         })
     }, { deep: true }
 )
+
+/** 全屏 */
+const containRef = ref()
+const isScreent = ref(true)
+const fullScreen = () => {
+    console.log(isScreent.value);
+    if (isScreent.value) {
+        containRef.value.requestFullscreen()
+        isScreent.value = !isScreent.value
+    } else {
+        containRef.value.exitFullscreen()
+    }
+}
+
+let timer: any = null
 onBeforeUnmount(() => {
     if (ws && ws.readyState == WebSocket.OPEN) {
         ws.close()
     }
+    clearInterval(timer)
 })
+
+const currentDate = ref()
 onMounted(async () => {
     // 页面底部
     mainRef.value.scrollTop = mainRef.value.scrollHeight
     initWebsocket()
+    timer = setInterval(() => {
+        currentDate.value = currentTime()
+    }, 1000)
 })
 
 </script>
 <style scoped lang="scss">
 @import './index.scss';
-
-// .container {
-//     height: 100%;
-// }
-
-// .main {
-//     // height: calc(100vh - 300px);
-//     width: 100%;
-//     height: 300px;
-//     position: absolute;
-//     bottom: 0;
-//     padding: 0;
-
-//     .main-container {
-//         overflow-y: scroll;
-//         height: 100%;
-
-//         .main-container-inner {
-//             padding: 0 8px;
-//             display: flex;
-//             width: 80%;
-//             margin: 6px 0;
-//         }
-
-//         .user-container {
-//             padding: 10px 8px;
-//             display: flex;
-//             flex-direction: row-reverse;
-//         }
-
-//         .admin {
-//             display: flex;
-//         }
-
-//         .adminInit {
-//             padding: 0 8px;
-//         }
-
-//         .admin-avator {
-//             padding: 0 10px;
-
-//             .image {
-//                 width: 40px;
-//                 height: 40px;
-//             }
-//         }
-
-//         .admin-text {
-//             // background-color: rgba(240, 240, 240, 0.2);
-//             padding: 5px 12px;
-//             line-height: 30px;
-//             margin: auto 0;
-//             word-wrap: break-word;
-//             word-break: break-all;
-
-//             // 毛玻璃效果
-//             background: rgba(255, 255, 255, 0.2);
-//             -webkit-backdrop-filter: blur(8px);
-//             backdrop-filter: blur(8px);
-//             box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.2);
-//             border-radius: 8px;
-//         }
-//     }
-
-//     .van-button {
-//         width: 30px;
-//         height: 35px;
-//         margin-left: 10px;
-//         opacity: 0.8;
-//     }
-// }
-
-// }
 </style>

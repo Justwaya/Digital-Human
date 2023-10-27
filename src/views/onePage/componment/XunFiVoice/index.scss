@@ -12,22 +12,16 @@
 }
 @media screen and (min-width: 769px) and (max-width: 1440px) {
   .footer-container {
+    // position: relative;
     .circle {
       position: absolute;
-      left: 80vw;
-      bottom: 47vh;
-      // margin-bottom: 14px;
-      width: 66px;
-      height: 66px;
+      // z-index: 999;
+      right: 1.5vw;
+      bottom: 51.5vh;
+      width: 57px;
+      height: 57px;
     }
   }
-  //   .van-icon__image {
-  //     width: 70px;
-  //     height: 70px;
-  //   }
-  //   :root:root {
-  //     --van-floating-bubble-size: 80px;
-  //   }
 }
 ::v-deep(.van-icon__image) {
   font-size: 30px;

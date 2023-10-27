@@ -2,9 +2,8 @@
     <div class="container-img">
         <video ref="videoRef2" class="pictureTwo" autoplay v-show="endedVido" @pause="videoNextPause"></video>
         <video ref="videoRef" class="picture" autoplay @pause="pause" @canplay="canplay" v-show="endedVido"></video>
-        <!-- <video src="../../../assets//video//staticStanding.mp4" autoplay muted class="pictureTwo" loop></video> -->
-        <!-- <video src="../../../assets//video//staticStanding.mp4" autoplay muted class="picture" loop></video> -->
         <video src="@/assets/video/fullStanding.mp4" autoplay muted class="pictureThree" loop></video>
+        <img src="@/assets/image/矩形@2x.png" alt="">
     </div>
 </template>
   

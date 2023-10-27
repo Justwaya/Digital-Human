@@ -14,7 +14,7 @@
 import * as apis from '../api'
 import { listProps, showNotify } from 'vant';
 import { getCurrentInstance } from 'vue'
-import img from '@/assets/image/voice.png'
+import img from '@/assets/image/voice@2.png'
 
 
 let timer: any = ref(null);
@@ -32,7 +32,7 @@ const currentRate = ref(0)
 const buttonType = ref<string>('primary')
 const XFSTATICTIME = 5000 //讯飞静默时间 ms
 
-const offset = ref({ x: -1, y: 1000 });
+const offset = ref({ x: -1, y: 800 });
 // 获取全局的 vue 实例
 const instance = getCurrentInstance();
 // let times: any = null

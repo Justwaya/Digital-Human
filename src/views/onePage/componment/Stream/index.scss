@@ -25,37 +25,36 @@
 /* 屏幕大于 769 或小于 1440px 时应用该样式 */
 @media screen and (min-width: 769px) and (max-width: 1440px) {
   .container-img {
-    width: 100vw;
-    height: 100vh;
     overflow: hidden;
-
-    /* background-color: skyblue; */
-    .picture {
-      height: 100vh;
-      /* height: 50vh; */
-      /* width: 50vw; */
-      /* width: 80vw; */
-    }
-
-    .pictureTwo {
-      /* width: 50vw; */
-      /* height: 50vh; */
-      height: 100vh;
-      width: 80vw;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
+    // position: absolute;
+    z-index: -1;
+    .picture,
+    .pictureTwo,
     .pictureThree {
-      height: 100vh;
       width: 100vw;
-      position: absolute;
-      object-position: top;
+      height: 85%;
       object-fit: cover;
-      top: 0;
-      left: 0;
-      z-index: -1;
+      position: absolute;
+    }
+    .picture {
+      z-index: 2; //中间层
+    }
+    .pictureTwo {
+      // position: absolute;
+      // width: 100vw;
+      // height: 100vh;
+      z-index: 1; //最上层
+    }
+    .pictureThree {
+      // position: absolute;
+      z-index: -1; //最底层
+    }
+    img {
+      width: 100%;
+      height: 23%;
+      position: absolute;
+      z-index: 3;
+      bottom: 0;
     }
   }
 }

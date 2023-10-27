@@ -8,7 +8,7 @@ export default function getNowTime() {
     let second = now.getSeconds(); //获取当前秒数(0-59)
     let dayOfWeek = now.getDay(); //获取当前星期几(0-6,0代表星期日)
 
-    let weekArr = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    let weekArr = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 
     let nowTime = `${year}年${fillZero(month)}月${fillZero(today)}日 ${weekArr[dayOfWeek]} ${fillZero(hour)}:${fillZero(minute)}:${fillZero(second)}`;
 

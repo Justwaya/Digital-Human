@@ -25,6 +25,7 @@ export default defineConfig({
     //   }
     port: 8080,
     host: "192.168.111.31",
+    // host: "0.0.0.0",
   },
   build: {
     rollupOptions: {
